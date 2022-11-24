@@ -1,0 +1,32 @@
+#define BLYNK_PRINT Serial
+#include <ESP8266WiFi.h>
+#include<BlynkSimpleEsp8266.h>
+char auth[] = "4vhk2X24Pyuo0hunXcfQavyACyll55lA";
+char ssid[] = "Devil";
+char pass[] = "123456788";
+int need ;
+void setup()
+{
+ Serial.begin(9600);
+ pinMode (D0,INPUT);
+ Blynk.begin(auth, ssid, pass);
+}
+void loop()
+{
+ Blynk.run();
+ need=digitalRead(D4);
+ Serial.println(need);
+ if(need == HIGH)
+ {
+ Serial.println("Water is Needed");
+ Blynk.notify("Water is Needed");
+ delay(400);
+ }
+ else
+ {
+ Serial.println("Water Not Needed");
+ Blynk.notify("Water is Not Needed");
+ delay(400);
+ }
+delay(100);
+}
